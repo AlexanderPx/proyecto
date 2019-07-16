@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.pi06.controller;
-
 import com.pi06.bdd.Conexion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
