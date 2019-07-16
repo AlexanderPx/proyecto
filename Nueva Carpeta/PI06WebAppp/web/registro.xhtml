@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <script type="text/javascript">
+//<![CDATA[
+    //cedula
+function validar(ced) {
+  var error=document.querySelector('.error');
+ // var ced = '0931811087';
+  let [suma, index] = [0, ced.length];
+  while (index--) {
+    let num = index < 9 ? ced[index] * 1 << (index+1) % 2: 0;
+    
+            suma += (num -= num >= 10 ? 9: 0);
+           // window.alert(num);
+  }
+  if (Math.ceil(suma / 10) * 10 - suma === parseInt(ced[9], 10)) {
+   // window.alert('Cédula correcta');
+   error.innerHTML = "";
+   document.getElementById("formId:ced").style.border = "2px solid #11f4f4";
+  } else {
+   // window.alert('Cédula incorrecta');
+    document.getElementById("formId:ced").value="";
+    error.innerHTML = "Cédula incorrecta";
+    error.className= "error active";
+    document.getElementById("formId:ced").style.border = "2px solid #fcd628";
+  //  Document.getElementById("ced").value
+   
+  }
+}
+function validarEmail( email ) 
+{
+    var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var bo= regex.test(email) ? true : false;
+    if( bo )
+{
+    //window.alert("El email es correcto");
+}
+else
+{
+    window.alert("Email incorrecto");
+    document.getElementById("formId:email").value="";  
+}
+}
+function contra( email ) 
+{
+if(email.length<=6){
+    window.alert("La contraseña debe tener al menos 6 caracteres");
+    document.getElementById("formId:password").value=""; 
+}
+}
+function validarContra( email ) 
+{
+    var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var bo= regex.test(email) ? true : false;
+    if( bo )
+{
+    //window.alert("El email es correcto");
+}
+else
+{
+    window.alert("Email incorrecto");
+    document.getElementById("formId:email").value="";  
+}
+}
+function contra( email ) 
+{
+if(email.length<=6){
+    window.alert("La contraseña debe tener al menos 6 caracteres");
+    document.getElementById("formId:password").value="";
+    document.getElementById("formId:password").style.border = "2px solid #fcd628";
+    
+}else{
+    document.getElementById("formId:password").style.border = "2px solid #11f4f4";
+}
+
+
+}
+function comprobarClave() {
+       var clave1 = document.getElementById("formId:password").value;
+       var clave2 = document.getElementById("formId:cpassword").value;
+            
+        if (clave1 !== clave2) {
+                // 	alert("Las dos zsdgsdfgs...\nRealizaríamos las acciones del caso positivo")  
+
+                 window.alert(  "Las contraseñas no coinciden");
+                 document.getElementById("formId:cpassword").value="";
+        } else {
+            window.alert("Las contraseñas  coinciden");
+
+        }
+
+    }
+        // ]]>
+        </script>
+        <link rel="stylesheet" href="estilo.css"/>
+        <title>Registro</title>
+    </h:head>
+    <h:body class="form">
+        <h:form id="formId">
+            <table class="form">
+                <tr>
+                    <td>
+                        <h2 class="titulo">Registrarse</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cédula</td>
+                    <td><h:inputText class="entrada" id="ced" onchange="validar(this.value)" required="true" value="#{Usuario.cedula}"/>
+                    <span class="error"></span></td>
+                </tr>
+                <tr>
+                    <td>Nombre</td>
+                    <td><h:inputText class="entrada" value="#{Usuario.nombre}" required="true" /></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><h:inputText class="entrada" id="email" onchange="validarEmail(this.value)" value="#{Usuario.correo}" required="true"/></td>
+                </tr>
+                <tr>
+                    <td>Contraseña</td>
+                    <td><h:inputSecret class="entrada"  value="#{Usuario.password}" id="password" required="true" onchange="contra(this.value)" maxlength="20" /></td>
+                </tr>
+                                <tr>
+                    <td>Repetir Contraseña</td>
+                    <td><h:inputSecret  class="entrada" id="cpassword" required="true" onchange="comprobarClave()" maxlength="20" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center" ><h:commandButton class="boton"  action="registrado.jsf" value="Registrar" /></td>
+                </tr>
+            </table>
+        </h:form>
+    </h:body>
+</html>
+
